@@ -33,6 +33,9 @@ public class MaxLengthChain {
 		}
 		
 		System.out.println(findMaxLengthChain (arr, nosPairs));
+		
+		// Following is for printing too
+		findMaxLengthChainAndPrint(arr, nosPairs);
 		kb.close();
 	}
 
@@ -59,8 +62,29 @@ public class MaxLengthChain {
 			if (max < dp[i])
 				max = dp[i];
 		
-		
 		return max;
+	}
+	
+	private static void findMaxLengthChainAndPrint(Pair[] arr, int nosPairs) {
+		Arrays.sort(arr);
+		
+		int i, j;
+		
+		int dp[] = new int[nosPairs];
+		Arrays.fill(dp, 1);		// Initial values to be 1
+		
+		String res = "";
+		
+		for (i = 1; i < dp.length; i++) {
+			for (j = 0; j < dp.length; j++) {
+				if ( arr[i].x > arr[j].y && dp[i] < dp[j] + 1) {
+					dp[i] = dp[j] + 1;
+					res += arr[i].x + "," + arr[j].y;
+				}
+				res += " ";
+			}
+		}
+		System.out.println(res);
 	}
 }
 
